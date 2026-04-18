@@ -653,16 +653,16 @@
                 return;
             }
 
-            // 送至 Apps Script 上傳 Drive
+            // 送至 Apps Script 上傳 Drive（使用 no-cors 避免 CORS 問題）
+            const payload = JSON.stringify({
+                action: 'uploadImage',
+                filename: file.name,
+                mimeType: file.type,
+                data: base64
+            });
             const res = await fetch(SHEET_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'uploadImage',
-                    filename: file.name,
-                    mimeType: file.type,
-                    data: base64
-                })
+                body: payload
             });
             const result = await res.json();
             if (result.status === 'ok' && result.url) {
@@ -772,7 +772,6 @@
             } else {
                 const res = await fetch(SHEET_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
                 const result = await res.json();
