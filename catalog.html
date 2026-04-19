@@ -240,6 +240,19 @@
     let allItems = [];
     let currentFilter = 'all';
 
+    // ── Drive 圖片網址轉換（uc?export=view → thumbnail 格式）──
+    function driveImg(url, size) {
+        if (!url) return '';
+        size = size || 400;
+        // 已經是 thumbnail 格式就直接回傳
+        if (url.includes('drive.google.com/thumbnail')) return url;
+        // 從 uc?export=view&id=XXX 或 file/d/XXX/view 提取 ID
+        var m = url.match(/[?&]id=([^&]+)/);
+        if (!m) m = url.match(/\/d\/([^/]+)/);
+        if (m) return `https://drive.google.com/thumbnail?id=${m[1]}&sz=w${size}`;
+        return url; // 非 Drive 網址直接回傳
+    }
+
     // ── Tooltip ──
     const tooltip = document.getElementById('tooltip');
     const tooltipContent = document.getElementById('tooltipContent');
@@ -252,7 +265,7 @@
 
         let html = '';
         if (hasImage) {
-            html += `<img class="tooltip-img" src="${escHtml(item.image)}"
+            html += `<img class="tooltip-img" src="${escHtml(driveImg(item.image, 400))}"
                         onerror="this.style.display='none'"
                         alt="產品圖片">`;
         }
