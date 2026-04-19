@@ -13,7 +13,7 @@
             --green: #2e7d52;
             --green-pale: #edf7f2;
             --amber: #e8a838;
-            --red: #e05c5c;
+            --red: #c0392b;
             --gray-50: #f7f9fb;
             --gray-100: #eef1f4;
             --gray-200: #dde3e8;
@@ -21,256 +21,150 @@
             --gray-600: #4a6070;
             --gray-800: #1e2f3a;
             --white: #ffffff;
-            --radius: 14px;
             --shadow: 0 2px 16px rgba(13,115,119,0.07);
-            --shadow-hover: 0 8px 32px rgba(13,115,119,0.14);
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            font-family: 'Noto Sans TC', sans-serif;
-            background: var(--gray-50);
-            color: var(--gray-800);
-        }
+        body { font-family: 'Noto Sans TC', sans-serif; background: var(--gray-50); color: var(--gray-800); }
 
         /* ── Header ── */
         header {
-            background: var(--teal);
-            padding: 24px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky; top: 0; z-index: 50;
+            background: var(--teal); padding: 18px 40px;
+            display: flex; align-items: center; justify-content: space-between;
+            position: sticky; top: 0; z-index: 100;
             box-shadow: 0 2px 20px rgba(13,115,119,0.3);
         }
-        .brand { display: flex; align-items: center; gap: 14px; }
-        .logo {
-            width: 44px; height: 44px;
-            background: rgba(255,255,255,0.2); border-radius: 11px;
-            display: flex; align-items: center; justify-content: center; font-size: 22px;
-        }
-        .brand-text h1 {
-            font-family: 'DM Serif Display', serif;
-            color: white; font-size: 22px;
-        }
-        .brand-text p { color: rgba(255,255,255,0.7); font-size: 12px; margin-top: 2px; }
-
-        .header-right { display: flex; align-items: center; gap: 16px; }
-        .last-updated { color: rgba(255,255,255,0.65); font-size: 12px; }
-
-        .admin-link {
-            color: white; text-decoration: none; font-size: 13px;
-            font-weight: 600; padding: 8px 16px;
-            border: 1.5px solid rgba(255,255,255,0.35);
-            border-radius: 8px; transition: all 0.2s;
-            display: flex; align-items: center; gap: 6px;
-        }
+        .brand { display: flex; align-items: center; gap: 12px; }
+        .logo { width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        .brand-text h1 { font-family: 'DM Serif Display', serif; color: white; font-size: 20px; }
+        .brand-text p { color: rgba(255,255,255,0.65); font-size: 11px; margin-top: 1px; }
+        .header-right { display: flex; align-items: center; gap: 14px; }
+        .last-updated { color: rgba(255,255,255,0.6); font-size: 12px; }
+        .admin-link { color: white; text-decoration: none; font-size: 13px; font-weight: 600; padding: 7px 14px; border: 1.5px solid rgba(255,255,255,0.35); border-radius: 8px; transition: all 0.2s; }
         .admin-link:hover { background: rgba(255,255,255,0.15); }
 
-        /* ── Controls Bar ── */
-        .controls {
-            background: white;
-            border-bottom: 1px solid var(--gray-200);
-            padding: 16px 40px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .search-wrapper {
-            flex: 1; min-width: 200px;
-            position: relative;
-        }
-        .search-icon {
-            position: absolute; left: 12px; top: 50%;
-            transform: translateY(-50%); font-size: 15px; opacity: 0.4;
-        }
-        .search-input {
-            width: 100%;
-            padding: 9px 12px 9px 36px;
-            border: 1.5px solid var(--gray-200);
-            border-radius: 9px;
-            font-family: 'Noto Sans TC', sans-serif;
-            font-size: 14px; color: var(--gray-800);
-            background: var(--gray-50); outline: none;
-            transition: border-color 0.2s;
-        }
+        /* ── Controls ── */
+        .controls { background: white; border-bottom: 1px solid var(--gray-200); padding: 12px 40px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .search-wrapper { flex: 1; min-width: 180px; position: relative; }
+        .search-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); font-size: 14px; opacity: 0.4; }
+        .search-input { width: 100%; padding: 8px 12px 8px 34px; border: 1.5px solid var(--gray-200); border-radius: 8px; font-family: 'Noto Sans TC', sans-serif; font-size: 13px; color: var(--gray-800); background: var(--gray-50); outline: none; transition: border-color 0.2s; }
         .search-input:focus { border-color: var(--teal-light); background: white; }
-
-        .filter-btn {
-            padding: 9px 16px; border-radius: 9px;
-            border: 1.5px solid var(--gray-200);
-            background: white; cursor: pointer;
-            font-family: 'Noto Sans TC', sans-serif;
-            font-size: 13px; font-weight: 600;
-            color: var(--gray-400); transition: all 0.2s;
-            display: flex; align-items: center; gap: 6px;
-        }
+        .filter-btn { padding: 7px 14px; border-radius: 8px; border: 1.5px solid var(--gray-200); background: white; cursor: pointer; font-family: 'Noto Sans TC', sans-serif; font-size: 13px; font-weight: 600; color: var(--gray-400); transition: all 0.2s; }
         .filter-btn.active { border-color: var(--teal); color: var(--teal); background: var(--teal-pale); }
         .filter-btn.surgery.active { border-color: var(--green); color: var(--green); background: var(--green-pale); }
-
-        .refresh-btn {
-            padding: 9px 14px; border-radius: 9px;
-            border: 1.5px solid var(--gray-200);
-            background: white; cursor: pointer;
-            font-size: 16px; transition: all 0.2s; color: var(--gray-600);
-        }
+        .refresh-btn { padding: 7px 12px; border-radius: 8px; border: 1.5px solid var(--gray-200); background: white; cursor: pointer; font-size: 15px; transition: all 0.2s; color: var(--gray-600); }
         .refresh-btn:hover { border-color: var(--teal); color: var(--teal); }
         .refresh-btn.spinning { animation: spin 1s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* ── Stats Bar ── */
-        .stats-bar {
-            padding: 10px 40px;
-            display: flex; gap: 20px; align-items: center;
-            font-size: 13px; color: var(--gray-400);
-        }
+        /* ── Stats ── */
+        .stats-bar { padding: 8px 40px; font-size: 12px; color: var(--gray-400); }
         .stats-bar .count { font-weight: 700; color: var(--teal); }
 
-        /* ── Grid ── */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 20px;
-            padding: 0 40px 60px;
+        /* ── Section ── */
+        .section { padding: 0 40px 40px; }
+        .section-title {
+            font-size: 11px; font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--gray-400);
+            padding: 20px 0 10px; border-bottom: 2px solid var(--gray-200);
+            margin-bottom: 0;
         }
 
-        /* ── Cards ── */
-        .item-card {
+        /* ── Table ── */
+        .data-table {
+            width: 100%; border-collapse: collapse;
+            background: white; border-radius: 10px; overflow: hidden;
+            box-shadow: var(--shadow); border: 1px solid var(--gray-200);
+            margin-bottom: 24px;
+        }
+        .data-table thead th {
+            background: var(--gray-100);
+            padding: 10px 14px; text-align: left;
+            font-size: 11px; font-weight: 700; letter-spacing: 1px;
+            text-transform: uppercase; color: var(--gray-400);
+            border-bottom: 1px solid var(--gray-200);
+        }
+        .data-table tbody tr {
+            border-bottom: 1px solid var(--gray-100);
+            transition: background 0.15s;
+            cursor: default;
+            position: relative;
+        }
+        .data-table tbody tr:last-child { border-bottom: none; }
+        .data-table tbody tr:hover { background: var(--teal-pale); }
+        .data-table tbody td {
+            padding: 10px 14px;
+            font-size: 13px; vertical-align: middle;
+        }
+        .td-name { font-weight: 700; color: var(--gray-800); }
+        .td-en { font-size: 11px; color: var(--gray-400); font-style: italic; margin-top: 2px; }
+        .td-spec { color: var(--gray-600); }
+        .td-code { font-family: monospace; font-size: 12px; color: var(--gray-400); }
+        .td-price { font-weight: 700; color: var(--red); white-space: nowrap; }
+        .td-hint { font-size: 11px; color: var(--gray-400); }
+
+        /* name-cell spans multiple spec rows */
+        .data-table .name-cell { vertical-align: top; padding-top: 12px; }
+
+        .badge-sm {
+            display: inline-block; font-size: 10px; font-weight: 700;
+            padding: 2px 7px; border-radius: 20px; letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .badge-sm.material { background: var(--teal-pale); color: var(--teal); }
+        .badge-sm.surgery  { background: var(--green-pale); color: var(--green); }
+
+        /* ── Tooltip ── */
+        .tooltip {
+            display: none;
+            position: fixed;
+            z-index: 999;
             background: white;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
+            border-radius: 12px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.18);
             border: 1px solid var(--gray-200);
-            overflow: hidden;
-            transition: box-shadow 0.25s, transform 0.25s;
-            animation: fadeUp 0.4s ease both;
+            padding: 14px;
+            width: 240px;
+            pointer-events: none;
+            animation: tooltipIn 0.15s ease;
         }
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes tooltipIn {
+            from { opacity: 0; transform: scale(0.96) translateY(4px); }
+            to   { opacity: 1; transform: scale(1) translateY(0); }
         }
-        .item-card:hover {
-            box-shadow: var(--shadow-hover);
-            transform: translateY(-3px);
-        }
-
-        /* Material card */
-        .card-img {
-            width: 100%; height: 180px;
-            object-fit: cover; display: block;
+        .tooltip.visible { display: block; }
+        .tooltip-img {
+            width: 100%; height: 150px; object-fit: cover;
+            border-radius: 8px; display: block; margin-bottom: 10px;
             background: var(--gray-100);
         }
-        .card-img-placeholder {
-            width: 100%; height: 180px;
-            background: linear-gradient(135deg, var(--teal-pale), var(--gray-100));
-            display: flex; align-items: center; justify-content: center;
-            font-size: 48px; color: var(--gray-200);
+        .tooltip-img-placeholder {
+            width: 100%; height: 150px; border-radius: 8px;
+            background: var(--gray-100); display: flex; align-items: center;
+            justify-content: center; font-size: 40px; margin-bottom: 10px;
         }
-        .card-body { padding: 18px 20px; }
+        .tooltip-note {
+            font-size: 12px; color: var(--gray-600); line-height: 1.6;
+            background: #fffbec; border-left: 3px solid var(--amber);
+            padding: 7px 9px; border-radius: 0 6px 6px 0;
+        }
+        .tooltip-no-info { font-size: 12px; color: var(--gray-400); text-align: center; padding: 10px 0; }
 
-        .badge {
-            display: inline-flex; align-items: center; gap: 5px;
-            font-size: 11px; font-weight: 700; letter-spacing: 0.8px;
-            text-transform: uppercase;
-            padding: 3px 9px; border-radius: 20px;
-            margin-bottom: 10px;
-        }
-        .badge.material { background: var(--teal-pale); color: var(--teal); }
-        .badge.surgery { background: var(--green-pale); color: var(--green); }
-
-        .card-title { font-size: 17px; font-weight: 700; margin-bottom: 3px; color: var(--gray-800); }
-        .card-subtitle { font-size: 13px; color: var(--gray-400); margin-bottom: 14px; font-style: italic; }
-
-        /* Specs table */
-        .specs-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-            border-radius: 8px; overflow: hidden;
-            border: 1px solid var(--gray-200);
-        }
-        .specs-table thead th {
-            background: var(--gray-100);
-            padding: 7px 10px;
-            text-align: left;
-            font-size: 11px; font-weight: 700;
-            letter-spacing: 0.8px; text-transform: uppercase;
-            color: var(--gray-400);
-        }
-        .specs-table tbody td {
-            padding: 8px 10px;
-            border-top: 1px solid var(--gray-100);
-        }
-        .specs-table tbody tr:hover td { background: var(--gray-50); }
-        .price-cell { font-weight: 700; color: var(--red); }
-
-        .card-note {
-            margin-top: 12px;
-            font-size: 12px; color: var(--gray-600);
-            background: #fffbec;
-            border-left: 3px solid var(--amber);
-            padding: 8px 10px; border-radius: 0 6px 6px 0;
-            line-height: 1.6;
-        }
-
-        /* Surgery card */
-        .surgery-card .card-body { border-left: 4px solid var(--green); }
-        .surgery-price-row {
-            display: flex; justify-content: space-between;
-            align-items: flex-end; margin-bottom: 10px;
-        }
-        .surgery-price {
-            font-size: 26px; font-weight: 700;
-            color: var(--red); letter-spacing: -0.5px;
-        }
-        .surgery-price span { font-size: 14px; font-weight: 500; color: var(--gray-400); }
-        .surgery-code {
-            font-size: 12px; color: var(--gray-400);
-            background: var(--gray-100); padding: 4px 10px;
-            border-radius: 6px; font-family: monospace;
-        }
-
-        /* ── Empty / Loading States ── */
-        .state-container {
-            grid-column: 1 / -1;
-            text-align: center; padding: 80px 20px;
-            color: var(--gray-400);
-        }
-        .state-icon { font-size: 56px; margin-bottom: 16px; }
-        .state-msg { font-size: 18px; font-weight: 500; color: var(--gray-600); margin-bottom: 8px; }
-        .state-sub { font-size: 14px; }
-
-        .loading-dots span {
-            display: inline-block;
-            width: 10px; height: 10px;
-            background: var(--teal-light); border-radius: 50%; margin: 0 3px;
-            animation: bounce 1.2s infinite ease-in-out;
-        }
+        /* ── States ── */
+        .state-box { text-align: center; padding: 60px 20px; color: var(--gray-400); }
+        .state-box .icon { font-size: 48px; margin-bottom: 12px; }
+        .state-box .msg { font-size: 16px; font-weight: 500; color: var(--gray-600); margin-bottom: 6px; }
+        .loading-dots span { display: inline-block; width: 9px; height: 9px; background: var(--teal-light); border-radius: 50%; margin: 0 3px; animation: bounce 1.2s infinite ease-in-out; }
         .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
         .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes bounce {
-            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
-            40% { transform: scale(1.1); opacity: 1; }
-        }
+        @keyframes bounce { 0%,80%,100%{transform:scale(0.6);opacity:0.4} 40%{transform:scale(1.1);opacity:1} }
 
-        /* ── Config Notice (demo) ── */
-        .demo-banner {
-            background: #fef9ee; border-bottom: 1px solid #f5d883;
-            padding: 10px 40px; font-size: 13px; color: #7a5800;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .demo-banner code {
-            background: rgba(0,0,0,0.08); padding: 1px 5px;
-            border-radius: 4px; font-size: 12px;
-        }
+        .demo-banner { background: #fef9ee; border-bottom: 1px solid #f5d883; padding: 9px 40px; font-size: 12px; color: #7a5800; }
 
-        /* ── Responsive ── */
         @media (max-width: 640px) {
-            header { padding: 16px 20px; }
-            .controls, .stats-bar { padding: 12px 16px; }
-            .grid { grid-template-columns: 1fr; padding: 0 16px 40px; }
+            header, .controls, .stats-bar { padding-left: 16px; padding-right: 16px; }
+            .section { padding: 0 16px 32px; }
+            .data-table thead th:nth-child(3),
+            .data-table tbody td:nth-child(3) { display: none; }
         }
     </style>
 </head>
@@ -290,128 +184,140 @@
     </div>
 </header>
 
-<div class="demo-banner" id="demoBanner">
-    ⚙️ <strong>示範模式：</strong>目前顯示範例資料。請將 <code>SHEET_URL</code> 設定為你的 Google Apps Script 網址，即可從 Google Sheets 載入真實資料。
+<div class="demo-banner" id="demoBanner" style="display:none">
+    ⚙️ <strong>示範模式：</strong>請將 <code>SHEET_URL</code> 設定為 Google Apps Script 網址以載入真實資料。
 </div>
 
 <div class="controls">
     <div class="search-wrapper">
         <span class="search-icon">🔍</span>
-        <input type="text" class="search-input" id="searchInput"
-            placeholder="搜尋項目名稱、編號、規格..."
-            oninput="filterItems()">
+        <input type="text" class="search-input" id="searchInput" placeholder="搜尋名稱、編號、規格..." oninput="filterItems()">
     </div>
-    <button class="filter-btn active" id="btn-all" onclick="setFilter('all', this)">全部</button>
+    <button class="filter-btn active" id="btn-all"      onclick="setFilter('all', this)">全部</button>
     <button class="filter-btn active" id="btn-material" onclick="setFilter('material', this)">💊 材料/藥品</button>
     <button class="filter-btn surgery" id="btn-surgery" onclick="setFilter('surgery', this)">🔬 手術/檢查</button>
     <button class="refresh-btn" id="refreshBtn" onclick="loadItems()" title="重新整理">🔄</button>
 </div>
 
-<div class="stats-bar">
-    <span>顯示 <span class="count" id="countDisplay">0</span> 筆項目</span>
+<div class="stats-bar">顯示 <span class="count" id="countDisplay">0</span> 筆項目　<span style="font-size:11px">（將滑鼠移到項目上可查看圖片與備註）</span></div>
+
+<!-- 懸浮圖片+備註視窗 -->
+<div class="tooltip" id="tooltip">
+    <div id="tooltipContent"></div>
 </div>
 
-<div class="grid" id="catalog-grid">
-    <!-- 由 JS 動態產生 -->
+<div class="section" id="mainSection">
+    <div class="state-box" id="loadingBox">
+        <div class="loading-dots"><span></span><span></span><span></span></div>
+        <div class="msg" style="margin-top:14px">載入中...</div>
+    </div>
 </div>
 
 <script>
-    // ════════════════════════════════════════════════
-    //  ⚙️  設定你的 Google Apps Script 網址（GET）
-    // ════════════════════════════════════════════════
-    const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyV-6bW2jrECzm3YIqwRdHQK1WFyXROZtItReMtLRaYGPn0EQen-a717jMJ8Ro_2dfI/exec';
+    // ══════════════════════════════════════════
+    //  ⚙️  設定 Google Apps Script 網址
+    // ══════════════════════════════════════════
+    const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwPbntg5QTD8k2jdmnZCdOqTet70a9iK0kiDGP6TyR_-9Ve-yhqPyZ-4AysrsGi8TjH/exec';
 
-
-    // ── 示範資料（尚未串接 Sheets 時使用）──
+    // ── 示範資料 ──
     const DEMO_DATA = [
-        {
-            id: 1, type: 'material', twName: '可吸收性止血海綿', enName: 'Nasopore',
-            specs: [
-                { size: '4cm（標準）', code: 'MAT-001', price: '4500' },
-                { size: '8cm（加長）', code: 'MAT-002', price: '8000' }
-            ],
-            note: '用於鼻部手術後止血，不需抽出，可自然吸收。',
-            image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&q=80',
-            timestamp: '2025/01/15 09:30'
-        },
-        {
-            id: 2, type: 'material', twName: '耳用止痛消炎滴耳液', enName: 'Ciproxin HC',
-            specs: [
-                { size: '10ml', code: 'MAT-010', price: '1200' }
-            ],
-            note: '含抗生素與類固醇成分，用於外耳炎治療。',
-            image: '',
-            timestamp: '2025/01/16 14:00'
-        },
-        {
-            id: 3, type: 'surgery', name: '無線電波微創鼻甲手術', code: 'RF-9981', price: '15000',
-            note: '門診手術，改善過敏性鼻炎與鼻塞，術後恢復快速。',
-            timestamp: '2025/01/17 10:00'
-        },
-        {
-            id: 4, type: 'surgery', name: '喉部內視鏡顯微手術', code: 'LMS-5521', price: '28000',
-            note: '全身麻醉，適用於聲帶病變、息肉切除等，術後須禁聲。',
-            timestamp: '2025/01/18 11:30'
-        },
-        {
-            id: 5, type: 'material', twName: '矽膠耳道支架', enName: 'Silastic Stent',
-            specs: [
-                { size: 'S（兒童）', code: 'STT-201', price: '3200' },
-                { size: 'M（成人）', code: 'STT-202', price: '3800' },
-                { size: 'L（加大）', code: 'STT-203', price: '4200' }
-            ],
-            note: '用於耳道成形術後維持管徑通暢。',
-            image: '',
-            timestamp: '2025/01/19 09:00'
-        }
+        { type:'material', twName:'可吸收性止血海綿', enName:'Nasopore',
+          specs:[{size:'4cm（標準）',code:'MAT-001',price:'4500'},{size:'8cm（加長）',code:'MAT-002',price:'8000'}],
+          note:'用於鼻部手術後止血，不需抽出，可自然吸收。',
+          image:'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80' },
+        { type:'material', twName:'耳用消炎滴耳液', enName:'Ciproxin HC',
+          specs:[{size:'10ml',code:'MAT-010',price:'1200'}],
+          note:'含抗生素與類固醇成分，用於外耳炎治療。', image:'' },
+        { type:'surgery', name:'無線電波微創鼻甲手術', code:'RF-9981', price:'15000',
+          note:'門診手術，改善過敏性鼻炎與鼻塞，術後恢復快速。' },
+        { type:'surgery', name:'喉部內視鏡顯微手術', code:'LMS-5521', price:'28000',
+          note:'全身麻醉，適用於聲帶病變、息肉切除，術後須禁聲。' },
+        { type:'material', twName:'矽膠耳道支架', enName:'Silastic Stent',
+          specs:[{size:'S（兒童）',code:'STT-201',price:'3200'},{size:'M（成人）',code:'STT-202',price:'3800'},{size:'L（加大）',code:'STT-203',price:'4200'}],
+          note:'用於耳道成形術後維持管徑通暢。', image:'' }
     ];
 
-    // ── 狀態 ──
     let allItems = [];
     let currentFilter = 'all';
 
-    // ── 載入資料 ──
+    // ── Tooltip ──
+    const tooltip = document.getElementById('tooltip');
+    const tooltipContent = document.getElementById('tooltipContent');
+    let tooltipVisible = false;
+
+    function showTooltip(e, item) {
+        const hasImage = item.image && item.image.trim();
+        const hasNote  = item.note  && item.note.trim();
+        if (!hasImage && !hasNote) return;
+
+        let html = '';
+        if (hasImage) {
+            html += `<img class="tooltip-img" src="${escHtml(item.image)}"
+                        onerror="this.style.display='none'"
+                        alt="產品圖片">`;
+        }
+        if (hasNote) {
+            html += `<div class="tooltip-note">📝 ${escHtml(item.note)}</div>`;
+        }
+        tooltipContent.innerHTML = html;
+        tooltip.classList.add('visible');
+        tooltipVisible = true;
+        positionTooltip(e);
+    }
+
+    function positionTooltip(e) {
+        if (!tooltipVisible) return;
+        const tw = 240, pad = 14;
+        let x = e.clientX + 16;
+        let y = e.clientY + 10;
+        if (x + tw + pad > window.innerWidth) x = e.clientX - tw - 16;
+        if (y + tooltip.offsetHeight + pad > window.innerHeight) y = e.clientY - tooltip.offsetHeight - 10;
+        tooltip.style.left = x + 'px';
+        tooltip.style.top  = y + 'px';
+    }
+
+    function hideTooltip() {
+        tooltip.classList.remove('visible');
+        tooltipVisible = false;
+    }
+
+    document.addEventListener('mousemove', e => {
+        if (tooltipVisible) positionTooltip(e);
+    });
+
+    // ── Load ──
     async function loadItems() {
-        const btn = document.getElementById('refreshBtn');
-        btn.classList.add('spinning');
-        const grid = document.getElementById('catalog-grid');
-        grid.innerHTML = `
-            <div class="state-container">
+        document.getElementById('refreshBtn').classList.add('spinning');
+        document.getElementById('mainSection').innerHTML =
+            `<div class="state-box" id="loadingBox">
                 <div class="loading-dots"><span></span><span></span><span></span></div>
-                <div class="state-msg" style="margin-top:16px">載入中...</div>
+                <div class="msg" style="margin-top:14px">載入中...</div>
             </div>`;
 
         try {
             if (SHEET_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
-                await new Promise(r => setTimeout(r, 800));
+                await new Promise(r => setTimeout(r, 700));
                 allItems = DEMO_DATA;
-                document.getElementById('demoBanner').style.display = 'flex';
+                document.getElementById('demoBanner').style.display = 'block';
             } else {
                 document.getElementById('demoBanner').style.display = 'none';
-                const res = await fetch(SHEET_URL + '?action=getAll&t=' + Date.now());
+                const res = await fetch(SHEET_URL + '?t=' + Date.now());
                 const data = await res.json();
                 allItems = data.items || [];
             }
-
             const now = new Date();
             document.getElementById('lastUpdated').textContent =
-                '更新：' + now.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' });
-
+                '更新：' + now.toLocaleTimeString('zh-TW', {hour:'2-digit', minute:'2-digit'});
             filterItems();
-        } catch (err) {
-            console.error(err);
-            grid.innerHTML = `
-                <div class="state-container">
-                    <div class="state-icon">⚠️</div>
-                    <div class="state-msg">載入失敗</div>
-                    <div class="state-sub">${err.message}</div>
-                </div>`;
+        } catch(err) {
+            document.getElementById('mainSection').innerHTML =
+                `<div class="state-box"><div class="icon">⚠️</div><div class="msg">載入失敗</div><div>${err.message}</div></div>`;
         } finally {
-            btn.classList.remove('spinning');
+            document.getElementById('refreshBtn').classList.remove('spinning');
         }
     }
 
-    // ── 過濾 & 搜尋 ──
+    // ── Filter ──
     function setFilter(type, btn) {
         currentFilter = type;
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -422,101 +328,101 @@
     function filterItems() {
         const q = document.getElementById('searchInput').value.toLowerCase();
         const filtered = allItems.filter(item => {
-            const matchType = currentFilter === 'all' || item.type === currentFilter;
-            if (!matchType) return false;
+            if (currentFilter !== 'all' && item.type !== currentFilter) return false;
             if (!q) return true;
-
-            const searchStr = [
-                item.twName, item.enName, item.name, item.code, item.note,
-                ...(item.specs || []).flatMap(s => [s.size, s.code])
-            ].filter(Boolean).join(' ').toLowerCase();
-
-            return searchStr.includes(q);
+            const str = [item.twName, item.enName, item.name, item.code, item.note,
+                ...(item.specs||[]).flatMap(s=>[s.size,s.code])].filter(Boolean).join(' ').toLowerCase();
+            return str.includes(q);
         });
-
         renderItems(filtered);
         document.getElementById('countDisplay').textContent = filtered.length;
     }
 
-    // ── 渲染 ──
+    // ── Render ──
     function renderItems(items) {
-        const grid = document.getElementById('catalog-grid');
-
+        const sec = document.getElementById('mainSection');
         if (items.length === 0) {
-            grid.innerHTML = `
-                <div class="state-container">
-                    <div class="state-icon">🔍</div>
-                    <div class="state-msg">找不到相符項目</div>
-                    <div class="state-sub">試試其他關鍵字或切換分類</div>
-                </div>`;
+            sec.innerHTML = `<div class="state-box"><div class="icon">🔍</div><div class="msg">找不到相符項目</div></div>`;
             return;
         }
 
-        grid.innerHTML = items.map((item, i) => {
-            const delay = (i % 12) * 50;
-            if (item.type === 'material') {
-                return renderMaterialCard(item, delay);
-            } else {
-                return renderSurgeryCard(item, delay);
-            }
-        }).join('');
+        const materials = items.filter(i => i.type === 'material');
+        const surgeries  = items.filter(i => i.type === 'surgery');
+        let html = '';
+
+        if (materials.length > 0) {
+            html += `<div class="section-title">💊 材料和藥品</div>`;
+            html += `<table class="data-table">
+                <thead><tr>
+                    <th style="width:22%">品名</th>
+                    <th style="width:20%">規格</th>
+                    <th style="width:22%">材料編號</th>
+                    <th style="width:16%">價格 (NT$)</th>
+                    <th style="width:20%">備註/圖片</th>
+                </tr></thead><tbody>`;
+
+            materials.forEach(item => {
+                const specs = item.specs && item.specs.length > 0 ? item.specs : [{}];
+                specs.forEach((spec, idx) => {
+                    const hasExtra = (item.image && item.image.trim()) || (item.note && item.note.trim());
+                    const price = spec.price ? 'NT$' + Number(spec.price).toLocaleString() : '—';
+                    html += `<tr
+                        onmouseenter='showTooltip(event, ${JSON.stringify(item).replace(/'/g,"&#39;")})'
+                        onmouseleave="hideTooltip()">`;
+
+                    if (idx === 0) {
+                        html += `<td class="name-cell" rowspan="${specs.length}">
+                            <span class="badge-sm material">材料/藥品</span><br>
+                            <span class="td-name">${escHtml(item.twName)}</span>
+                            ${item.enName ? `<div class="td-en">${escHtml(item.enName)}</div>` : ''}
+                        </td>`;
+                    }
+
+                    html += `<td class="td-spec">${escHtml(spec.size) || '—'}</td>
+                        <td class="td-code">${escHtml(spec.code) || '—'}</td>
+                        <td class="td-price">${price}</td>
+                        <td class="td-hint">${hasExtra ? '🖼️ 移入查看' : ''}</td>
+                    </tr>`;
+                });
+            });
+            html += `</tbody></table>`;
+        }
+
+        if (surgeries.length > 0) {
+            html += `<div class="section-title">🔬 手術和檢查</div>`;
+            html += `<table class="data-table">
+                <thead><tr>
+                    <th style="width:38%">名稱</th>
+                    <th style="width:20%">計價碼</th>
+                    <th style="width:22%">費用 (NT$)</th>
+                    <th style="width:20%">備註</th>
+                </tr></thead><tbody>`;
+
+            surgeries.forEach(item => {
+                const hasExtra = item.note && item.note.trim();
+                html += `<tr
+                    onmouseenter='showTooltip(event, ${JSON.stringify(item).replace(/'/g,"&#39;")})'
+                    onmouseleave="hideTooltip()">
+                    <td>
+                        <span class="badge-sm surgery">手術/檢查</span><br>
+                        <span class="td-name">${escHtml(item.name)}</span>
+                    </td>
+                    <td class="td-code">${escHtml(item.code) || '—'}</td>
+                    <td class="td-price">NT$${Number(item.price).toLocaleString()}</td>
+                    <td class="td-hint">${hasExtra ? '💬 移入查看' : ''}</td>
+                </tr>`;
+            });
+            html += `</tbody></table>`;
+        }
+
+        sec.innerHTML = html;
     }
 
-    function renderMaterialCard(item, delay) {
-        const imgHtml = item.image
-            ? `<img class="card-img" src="${escHtml(item.image)}" alt="${escHtml(item.twName)}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
-            : '';
-        const placeholder = `<div class="card-img-placeholder" ${item.image ? 'style="display:none"' : ''}>💊</div>`;
-
-        const specsRows = (item.specs || []).map(s => `
-            <tr>
-                <td>${escHtml(s.size)}</td>
-                <td style="color:var(--gray-400);font-family:monospace;font-size:12px">${escHtml(s.code)}</td>
-                <td class="price-cell">NT$${Number(s.price).toLocaleString()}</td>
-            </tr>`).join('');
-
-        return `
-        <div class="item-card" style="animation-delay:${delay}ms">
-            ${imgHtml}${placeholder}
-            <div class="card-body">
-                <span class="badge material">💊 材料/藥品</span>
-                <div class="card-title">${escHtml(item.twName)}</div>
-                ${item.enName ? `<div class="card-subtitle">${escHtml(item.enName)}</div>` : '<div style="margin-bottom:14px"></div>'}
-                <table class="specs-table">
-                    <thead>
-                        <tr><th>規格</th><th>材料編號</th><th>價格</th></tr>
-                    </thead>
-                    <tbody>${specsRows}</tbody>
-                </table>
-                ${item.note ? `<div class="card-note">📝 ${escHtml(item.note)}</div>` : ''}
-            </div>
-        </div>`;
-    }
-
-    function renderSurgeryCard(item, delay) {
-        return `
-        <div class="item-card surgery-card" style="animation-delay:${delay}ms">
-            <div class="card-body">
-                <span class="badge surgery">🔬 手術/檢查</span>
-                <div class="card-title" style="margin-bottom:16px">${escHtml(item.name)}</div>
-                <div class="surgery-price-row">
-                    <div class="surgery-price">NT$${Number(item.price).toLocaleString()} <span>元</span></div>
-                    ${item.code ? `<div class="surgery-code">代碼 ${escHtml(item.code)}</div>` : ''}
-                </div>
-                ${item.note ? `<div class="card-note">📝 ${escHtml(item.note)}</div>` : ''}
-            </div>
-        </div>`;
-    }
-
-    // ── 工具 ──
     function escHtml(str) {
         if (!str) return '';
-        return String(str)
-            .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-            .replace(/"/g,'&quot;');
+        return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
 
-    // ── 啟動 ──
     loadItems();
 </script>
 </body>
