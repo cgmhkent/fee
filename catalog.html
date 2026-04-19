@@ -160,11 +160,30 @@
 
         .demo-banner { background: #fef9ee; border-bottom: 1px solid #f5d883; padding: 9px 40px; font-size: 12px; color: #7a5800; }
 
+        /* ── Mobile ── */
         @media (max-width: 640px) {
-            header, .controls, .stats-bar { padding-left: 16px; padding-right: 16px; }
-            .section { padding: 0 16px 32px; }
-            .data-table thead th:nth-child(3),
-            .data-table tbody td:nth-child(3) { display: none; }
+            header { padding: 12px 14px; }
+            .brand-text h1 { font-size: 16px; }
+            .brand-text p { display: none; }
+            .logo { width: 34px; height: 34px; font-size: 16px; }
+            .admin-link { font-size: 11px; padding: 5px 10px; }
+            .last-updated { display: none; }
+            .controls { padding: 8px 10px; gap: 6px; }
+            .search-input { font-size: 12px; padding: 7px 10px 7px 30px; }
+            .filter-btn { font-size: 11px; padding: 6px 10px; }
+            .refresh-btn { padding: 6px 10px; font-size: 13px; }
+            .stats-bar { padding: 6px 10px; font-size: 11px; }
+            .section { padding: 0 8px 24px; }
+            .section-title { font-size: 10px; padding: 14px 0 8px; }
+            .data-table thead th { font-size: 10px; padding: 7px 6px; letter-spacing: 0; }
+            .data-table tbody td { padding: 7px 6px; font-size: 12px; }
+            .td-name { font-size: 12px; }
+            .td-en { font-size: 10px; }
+            .td-code { font-size: 11px; }
+            .td-price { font-size: 12px; }
+            .badge-sm { font-size: 9px; padding: 1px 5px; }
+            /* 手機隱藏「備註/圖片」提示欄 */
+            .col-hint { display: none; }
         }
     </style>
 </head>
@@ -367,18 +386,18 @@
             html += `<div class="section-title">💊 材料和藥品</div>`;
             html += `<table class="data-table">
                 <thead><tr>
-                    <th style="width:22%">品名</th>
+                    <th style="width:24%">品名</th>
                     <th style="width:20%">規格</th>
-                    <th style="width:22%">材料編號</th>
-                    <th style="width:16%">價格 (NT$)</th>
-                    <th style="width:20%">備註/圖片</th>
+                    <th style="width:24%">材料編號</th>
+                    <th style="width:16%">價格</th>
+                    <th class="col-hint" style="width:16%">備註/圖片</th>
                 </tr></thead><tbody>`;
 
             materials.forEach(item => {
                 const specs = item.specs && item.specs.length > 0 ? item.specs : [{}];
                 specs.forEach((spec, idx) => {
                     const hasExtra = (item.image && item.image.trim()) || (item.note && item.note.trim());
-                    const price = spec.price ? 'NT$' + Number(spec.price).toLocaleString() : '—';
+                    const price = spec.price ? Number(spec.price).toLocaleString() : '—';
                     html += `<tr
                         onmouseenter='showTooltip(event, ${JSON.stringify(item).replace(/'/g,"&#39;")})'
                         onmouseleave="hideTooltip()">`;
@@ -394,7 +413,7 @@
                     html += `<td class="td-spec">${escHtml(spec.size) || '—'}</td>
                         <td class="td-code">${escHtml(spec.code) || '—'}</td>
                         <td class="td-price">${price}</td>
-                        <td class="td-hint">${hasExtra ? '🖼️ 移入查看' : ''}</td>
+                        <td class="td-hint col-hint">${hasExtra ? '🖼️' : ''}</td>
                     </tr>`;
                 });
             });
@@ -405,10 +424,10 @@
             html += `<div class="section-title">🔬 手術和檢查</div>`;
             html += `<table class="data-table">
                 <thead><tr>
-                    <th style="width:38%">名稱</th>
-                    <th style="width:20%">計價碼</th>
-                    <th style="width:22%">費用 (NT$)</th>
-                    <th style="width:20%">備註</th>
+                    <th style="width:42%">名稱</th>
+                    <th style="width:22%">計價碼</th>
+                    <th style="width:22%">費用</th>
+                    <th class="col-hint" style="width:14%">備註</th>
                 </tr></thead><tbody>`;
 
             surgeries.forEach(item => {
@@ -421,8 +440,8 @@
                         <span class="td-name">${escHtml(item.name)}</span>
                     </td>
                     <td class="td-code">${escHtml(item.code) || '—'}</td>
-                    <td class="td-price">NT$${Number(item.price).toLocaleString()}</td>
-                    <td class="td-hint">${hasExtra ? '💬 移入查看' : ''}</td>
+                    <td class="td-price">${Number(item.price).toLocaleString()}</td>
+                    <td class="td-hint col-hint">${hasExtra ? '💬' : ''}</td>
                 </tr>`;
             });
             html += `</tbody></table>`;
