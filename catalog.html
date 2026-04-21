@@ -384,7 +384,8 @@
     function filterItems() {
         const q = document.getElementById('searchInput').value.toLowerCase();
         const filtered = allItems.filter(item => {
-            if (currentFilter !== 'all' && item.type !== currentFilter) return false;
+            // 'fav' 模式不過濾類型，交給 renderItems 處理
+            if (currentFilter !== 'all' && currentFilter !== 'fav' && item.type !== currentFilter) return false;
             if (!q) return true;
             const str = [item.twName, item.enName, item.name, item.code, item.note,
                 ...(item.specs||[]).flatMap(s=>[s.size,s.code])].filter(Boolean).join(' ').toLowerCase();
