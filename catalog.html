@@ -113,6 +113,29 @@
         .badge-sm.material { background: var(--teal-pale); color: var(--teal); }
         .badge-sm.surgery  { background: var(--green-pale); color: var(--green); }
 
+        /* ── Star / Favourite ── */
+        .star-btn {
+            background: none; border: none; cursor: pointer;
+            font-size: 16px; padding: 2px 4px;
+            line-height: 1; opacity: 0.3;
+            transition: opacity 0.2s, transform 0.15s;
+            vertical-align: middle;
+        }
+        .star-btn:hover { opacity: 0.7; }
+        .star-btn.starred { opacity: 1; }
+        .star-btn.starred:hover { transform: scale(1.2); }
+        tr.fav-row { background: #fffdf0 !important; }
+        tr.fav-row:hover { background: #fff8d6 !important; }
+        .fav-section-title {
+            font-size: 11px; font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--amber);
+            padding: 20px 0 10px; border-bottom: 2px solid #f5d883;
+            margin-bottom: 0;
+        }
+        @media (max-width: 640px) {
+            .star-btn { font-size: 14px; }
+        }
+
         /* ── Tooltip ── */
         .tooltip {
             display: none;
@@ -215,6 +238,7 @@
     <button class="filter-btn active" id="btn-all"      onclick="setFilter('all', this)">全部</button>
     <button class="filter-btn active" id="btn-material" onclick="setFilter('material', this)">💊 材料/藥品</button>
     <button class="filter-btn surgery" id="btn-surgery" onclick="setFilter('surgery', this)">🔬 手術/檢查</button>
+    <button class="filter-btn" id="btn-fav" onclick="setFilter('fav', this)" title="常用項目">⭐ 常用</button>
     <button class="refresh-btn" id="refreshBtn" onclick="loadItems()" title="重新整理">🔄</button>
 </div>
 
@@ -236,7 +260,7 @@
     // ══════════════════════════════════════════
     //  ⚙️  設定 Google Apps Script 網址
     // ══════════════════════════════════════════
-    const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwPbntg5QTD8k2jdmnZCdOqTet70a9iK0kiDGP6TyR_-9Ve-yhqPyZ-4AysrsGi8TjH/exec';
+    const SHEET_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
 
     // ── 示範資料 ──
     const DEMO_DATA = [
@@ -370,6 +394,22 @@
         document.getElementById('countDisplay').textContent = filtered.length;
     }
 
+    // ── Favourites（localStorage，只存在本裝置）──
+    function favKey(item) {
+        return item.type === 'material' ? 'fav_mat_' + item.twName : 'fav_sur_' + item.name;
+    }
+    function isFav(item) {
+        try { return localStorage.getItem(favKey(item)) === '1'; } catch(e) { return false; }
+    }
+    function toggleFav(key, btn) {
+        try {
+            const on = localStorage.getItem(key) === '1';
+            if (on) { localStorage.removeItem(key); }
+            else     { localStorage.setItem(key, '1'); }
+        } catch(e) {}
+        filterItems();
+    }
+
     // ── Render ──
     function renderItems(items) {
         const sec = document.getElementById('mainSection');
@@ -378,76 +418,147 @@
             return;
         }
 
-        const materials = items.filter(i => i.type === 'material');
-        const surgeries  = items.filter(i => i.type === 'surgery');
-        let html = '';
-
-        if (materials.length > 0) {
-            html += `<div class="section-title">💊 材料和藥品</div>`;
-            html += `<table class="data-table">
-                <thead><tr>
-                    <th style="width:24%">品名</th>
-                    <th style="width:20%">規格</th>
-                    <th style="width:24%">材料編號</th>
-                    <th style="width:16%">價格</th>
-                    <th class="col-hint" style="width:16%">備註/圖片</th>
-                </tr></thead><tbody>`;
-
-            materials.forEach(item => {
-                const specs = item.specs && item.specs.length > 0 ? item.specs : [{}];
-                specs.forEach((spec, idx) => {
-                    const hasExtra = (item.image && item.image.trim()) || (item.note && item.note.trim());
-                    const price = spec.price ? Number(spec.price).toLocaleString() : '—';
-                    html += `<tr
-                        onmouseenter='showTooltip(event, ${JSON.stringify(item).replace(/'/g,"&#39;")})'
-                        onmouseleave="hideTooltip()">`;
-
-                    if (idx === 0) {
-                        html += `<td class="name-cell" rowspan="${specs.length}">
-                            <span class="badge-sm material">材料/藥品</span><br>
-                            <span class="td-name">${escHtml(item.twName)}</span>
-                            ${item.enName ? `<div class="td-en">${escHtml(item.enName)}</div>` : ''}
-                        </td>`;
-                    }
-
-                    html += `<td class="td-spec">${escHtml(spec.size) || '—'}</td>
-                        <td class="td-code">${escHtml(spec.code) || '—'}</td>
-                        <td class="td-price">${price}</td>
-                        <td class="td-hint col-hint">${hasExtra ? '🖼️' : ''}</td>
-                    </tr>`;
-                });
-            });
-            html += `</tbody></table>`;
+        // 常用模式：只顯示常用項目
+        if (currentFilter === 'fav') {
+            items = items.filter(i => isFav(i));
+            if (items.length === 0) {
+                sec.innerHTML = `<div class="state-box"><div class="icon">⭐</div><div class="msg">尚無常用項目</div><div style="font-size:13px;margin-top:6px">點擊項目旁的 ☆ 加入常用</div></div>`;
+                return;
+            }
         }
 
-        if (surgeries.length > 0) {
-            html += `<div class="section-title">🔬 手術和檢查</div>`;
-            html += `<table class="data-table">
-                <thead><tr>
-                    <th style="width:42%">名稱</th>
-                    <th style="width:22%">計價碼</th>
-                    <th style="width:22%">費用</th>
-                    <th class="col-hint" style="width:14%">備註</th>
-                </tr></thead><tbody>`;
+        // 排序：常用的排前面，其餘維持原序
+        const sorted = [...items].sort((a, b) => {
+            const fa = isFav(a) ? 0 : 1;
+            const fb = isFav(b) ? 0 : 1;
+            return fa - fb;
+        });
 
-            surgeries.forEach(item => {
-                const hasExtra = item.note && item.note.trim();
-                html += `<tr
-                    onmouseenter='showTooltip(event, ${JSON.stringify(item).replace(/'/g,"&#39;")})'
-                    onmouseleave="hideTooltip()">
-                    <td>
-                        <span class="badge-sm surgery">手術/檢查</span><br>
-                        <span class="td-name">${escHtml(item.name)}</span>
-                    </td>
-                    <td class="td-code">${escHtml(item.code) || '—'}</td>
-                    <td class="td-price">${Number(item.price).toLocaleString()}</td>
-                    <td class="td-hint col-hint">${hasExtra ? '💬' : ''}</td>
-                </tr>`;
-            });
-            html += `</tbody></table>`;
+        const materials = sorted.filter(i => i.type === 'material');
+        const surgeries  = sorted.filter(i => i.type === 'surgery');
+        let html = '';
+
+        // 材料表
+        if (materials.length > 0) {
+            const favMats = materials.filter(i => isFav(i));
+            const normMats = materials.filter(i => !isFav(i));
+
+            if (favMats.length > 0 && currentFilter !== 'fav') {
+                html += `<div class="fav-section-title">⭐ 常用 — 材料和藥品</div>`;
+                html += buildMatTable(favMats, true);
+            }
+            if (normMats.length > 0) {
+                html += `<div class="section-title">💊 材料和藥品</div>`;
+                html += buildMatTable(normMats, false);
+            }
+            if (currentFilter === 'fav') {
+                html += `<div class="section-title">💊 材料和藥品</div>`;
+                html += buildMatTable(favMats, true);
+            }
+        }
+
+        // 手術表
+        if (surgeries.length > 0) {
+            const favSurs = surgeries.filter(i => isFav(i));
+            const normSurs = surgeries.filter(i => !isFav(i));
+
+            if (favSurs.length > 0 && currentFilter !== 'fav') {
+                html += `<div class="fav-section-title">⭐ 常用 — 手術和檢查</div>`;
+                html += buildSurTable(favSurs, true);
+            }
+            if (normSurs.length > 0) {
+                html += `<div class="section-title">🔬 手術和檢查</div>`;
+                html += buildSurTable(normSurs, false);
+            }
+            if (currentFilter === 'fav') {
+                html += `<div class="section-title">🔬 手術和檢查</div>`;
+                html += buildSurTable(favSurs, true);
+            }
         }
 
         sec.innerHTML = html;
+    }
+
+    function buildMatTable(items, starred) {
+        let html = `<table class="data-table"><thead><tr>
+            <th style="width:4%"></th>
+            <th style="width:22%">品名</th>
+            <th style="width:18%">規格</th>
+            <th style="width:22%">材料編號</th>
+            <th style="width:16%">價格</th>
+            <th class="col-hint" style="width:18%">備註/圖片</th>
+        </tr></thead><tbody>`;
+
+        items.forEach(item => {
+            const specs = item.specs && item.specs.length > 0 ? item.specs : [{}];
+            const fav = isFav(item);
+            const key = favKey(item);
+            const hasExtra = (item.image && item.image.trim()) || (item.note && item.note.trim());
+
+            specs.forEach((spec, idx) => {
+                const price = spec.price ? Number(spec.price).toLocaleString() : '—';
+                const rowCls = fav ? 'fav-row' : '';
+                html += `<tr class="${rowCls}"
+                    onmouseenter='showTooltip(event, ${JSON.stringify(item).replace(/'/g,"&#39;")})'
+                    onmouseleave="hideTooltip()">`;
+
+                if (idx === 0) {
+                    html += `<td rowspan="${specs.length}" style="text-align:center;vertical-align:top;padding-top:10px">
+                        <button class="star-btn ${fav ? 'starred' : ''}"
+                            onclick="toggleFav('${key}', this)"
+                            title="${fav ? '取消常用' : '加入常用'}">${fav ? '⭐' : '☆'}</button>
+                    </td>
+                    <td class="name-cell" rowspan="${specs.length}">
+                        <span class="badge-sm material">材料/藥品</span><br>
+                        <span class="td-name">${escHtml(item.twName)}</span>
+                        ${item.enName ? `<div class="td-en">${escHtml(item.enName)}</div>` : ''}
+                    </td>`;
+                }
+
+                html += `<td class="td-spec">${escHtml(spec.size) || '—'}</td>
+                    <td class="td-code">${escHtml(spec.code) || '—'}</td>
+                    <td class="td-price">${price}</td>
+                    <td class="td-hint col-hint">${hasExtra ? '🖼️' : ''}</td>
+                </tr>`;
+            });
+        });
+        html += `</tbody></table>`;
+        return html;
+    }
+
+    function buildSurTable(items, starred) {
+        let html = `<table class="data-table"><thead><tr>
+            <th style="width:4%"></th>
+            <th style="width:38%">名稱</th>
+            <th style="width:20%">計價碼</th>
+            <th style="width:20%">費用</th>
+            <th class="col-hint" style="width:18%">備註</th>
+        </tr></thead><tbody>`;
+
+        items.forEach(item => {
+            const fav = isFav(item);
+            const key = favKey(item);
+            const hasExtra = item.note && item.note.trim();
+            const rowCls = fav ? 'fav-row' : '';
+            html += `<tr class="${rowCls}"
+                onmouseenter='showTooltip(event, ${JSON.stringify(item).replace(/'/g,"&#39;")})'
+                onmouseleave="hideTooltip()">
+                <td style="text-align:center">
+                    <button class="star-btn ${fav ? 'starred' : ''}"
+                        onclick="toggleFav('${key}', this)"
+                        title="${fav ? '取消常用' : '加入常用'}">${fav ? '⭐' : '☆'}</button>
+                </td>
+                <td>
+                    <span class="badge-sm surgery">手術/檢查</span><br>
+                    <span class="td-name">${escHtml(item.name)}</span>
+                </td>
+                <td class="td-code">${escHtml(item.code) || '—'}</td>
+                <td class="td-price">${Number(item.price).toLocaleString()}</td>
+                <td class="td-hint col-hint">${hasExtra ? '💬' : ''}</td>
+            </tr>`;
+        });
+        html += `</tbody></table>`;
+        return html;
     }
 
     function escHtml(str) {
