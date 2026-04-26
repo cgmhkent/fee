@@ -244,7 +244,6 @@
 
 <div class="stats-bar">顯示 <span class="count" id="countDisplay">0</span> 筆項目　<span style="font-size:11px">（將滑鼠移到項目上可查看圖片與備註）</span></div>
 
-<!-- 懸浮圖片+備註視窗 -->
 <div class="tooltip" id="tooltip">
     <div id="tooltipContent"></div>
 </div>
@@ -503,6 +502,7 @@
                     onmouseenter='showTooltip(event, ${JSON.stringify(item).replace(/'/g,"&#39;")})'
                     onmouseleave="hideTooltip()">`;
 
+                // 只在第一個規格生成收藏按鈕與品名
                 if (idx === 0) {
                     html += `<td rowspan="${specs.length}" style="text-align:center;vertical-align:top;padding-top:10px">
                         <button class="star-btn ${fav ? 'starred' : ''}"
@@ -516,11 +516,17 @@
                     </td>`;
                 }
 
+                // 每個規格都有的欄位
                 html += `<td class="td-spec">${escHtml(spec.size) || '—'}</td>
                     <td class="td-code">${escHtml(spec.code) || '—'}</td>
-                    <td class="td-price">${price}</td>
-                    <td class="td-hint col-hint">${hasExtra ? '🖼️' : ''}</td>
-                </tr>`;
+                    <td class="td-price">${price}</td>`;
+
+                // 只在第一個規格生成跨列的「備註/圖片」欄位
+                if (idx === 0) {
+                    html += `<td class="td-hint col-hint" rowspan="${specs.length}" style="vertical-align:top; padding-top:12px;">${hasExtra ? '🖼️' : ''}</td>`;
+                }
+
+                html += `</tr>`;
             });
         });
         html += `</tbody></table>`;
